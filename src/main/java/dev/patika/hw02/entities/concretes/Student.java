@@ -97,10 +97,11 @@ public class Student {
     //endregion
 
     //region utility methods
+
     /**
      * Adds the specified course to this student.
      *
-     * @param course course to be added to this student
+     * @param course element to be added to this student.
      */
     public void addCourse(Course course) {
         courses.add(course);
@@ -110,7 +111,7 @@ public class Student {
     /**
      * Removes the specified course from this student.
      *
-     * @param course course to be removed from this student
+     * @param course element to be removed from this student.
      */
     public void removeCourse(Course course) {
         courses.remove(course);

@@ -87,7 +87,7 @@ public class Instructor {
     /**
      * Adds the specified course to this instructor.
      *
-     * @param course course to be added to this instructor
+     * @param course element to be added to this instructor.
      */
     public void addCourse(Course course) {
         courses.remove(course);
@@ -97,8 +97,8 @@ public class Instructor {
     /**
      * Removes the specified course from this instructor, assigns it to the other specified instructor.
      *
-     * @param course     course to be removed from this instructor
-     * @param instructor other instructor to be assigned to the course to replace this instructor
+     * @param course     element to be removed from this instructor.
+     * @param instructor other {@literal instructor} to be assigned to the {@literal course} to replace this instructor.
      */
     public void removeCourse(Course course, Instructor instructor) {
         courses.remove(course);

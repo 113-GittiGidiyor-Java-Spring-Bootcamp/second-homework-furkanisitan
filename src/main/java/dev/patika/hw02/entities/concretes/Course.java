@@ -98,7 +98,7 @@ public class Course {
     /**
      * Adds the specified student to this course.
      *
-     * @param student student to be added to this course
+     * @param student element to be added to this course.
      */
     public void addStudent(Student student) {
         students.add(student);
@@ -108,7 +108,7 @@ public class Course {
     /**
      * Removes the specified student from this course.
      *
-     * @param student student to be removed from this course
+     * @param student element to be removed from this course.
      */
     public void removeStudent(Student student) {
         students.remove(student);
