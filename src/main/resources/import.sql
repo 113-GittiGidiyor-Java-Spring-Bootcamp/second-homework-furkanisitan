@@ -8,10 +8,10 @@ INSERT INTO courses (course_id, instructor_id, code, name, credit_score) VALUES 
 INSERT INTO courses (course_id, instructor_id, code, name, credit_score) VALUES (2, 2, "code2", "Course2", 5);
 INSERT INTO courses (course_id, instructor_id, code, name, credit_score) VALUES (3, 1, "code3", "Course3", 7);
 
-INSERT INTO students (student_id, name, address, birth_date, gender) VALUES (1, "Student1", "StudentAddress1", "2000-1-1", 1);
-INSERT INTO students (student_id, name, address, birth_date, gender) VALUES (2, "Student2", "StudentAddress2", "2000-2-2", 2);
-INSERT INTO students (student_id, name, address, birth_date, gender) VALUES (3, "Student3", "StudentAddress3", "2000-4-13", 2);
-INSERT INTO students (student_id, name, address, birth_date, gender) VALUES (4, "Student4", "StudentAddress4", "2000-7-22", 1);
+INSERT INTO students (student_id, name, address, birth_date, gender) VALUES (1, "Student1", "StudentAddress1", "2000-1-1", 0);
+INSERT INTO students (student_id, name, address, birth_date, gender) VALUES (2, "Student2", "StudentAddress2", "2000-2-2", 1);
+INSERT INTO students (student_id, name, address, birth_date, gender) VALUES (3, "Student3", "StudentAddress3", "2000-4-13", 1);
+INSERT INTO students (student_id, name, address, birth_date, gender) VALUES (4, "Student4", "StudentAddress4", "2000-7-22", 0);
 
 INSERT INTO student_course (student_id, course_id) VALUES (1, 1);
 INSERT INTO student_course (student_id, course_id) VALUES (3, 1);
