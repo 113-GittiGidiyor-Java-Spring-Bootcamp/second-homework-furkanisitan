@@ -1,5 +1,7 @@
 package dev.patika.hw02.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
@@ -23,10 +25,12 @@ public class Course {
     @Column(name = "credit_score", nullable = false, columnDefinition = "TINYINT")
     private int creditScore;
 
+    @JsonIgnoreProperties({"courses"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "instructor_id", nullable = false)
     private Instructor instructor;
 
+    @JsonIgnoreProperties({"courses"})
     @ManyToMany(mappedBy = "courses", fetch = FetchType.LAZY)
     private Set<Student> students = new HashSet<>();
 

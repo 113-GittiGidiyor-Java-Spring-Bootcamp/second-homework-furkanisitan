@@ -1,5 +1,6 @@
 package dev.patika.hw02.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import dev.patika.hw02.entities.enums.Gender;
 
 import javax.persistence.*;
@@ -29,6 +30,7 @@ public class Student {
     @Column(name = "gender", columnDefinition = "TINYINT")
     private Gender gender;
 
+    @JsonIgnoreProperties({"students", "instructor"})
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "course_id"))
     private Set<Course> courses = new HashSet<>();

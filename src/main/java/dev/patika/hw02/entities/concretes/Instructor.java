@@ -1,5 +1,7 @@
 package dev.patika.hw02.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
@@ -24,6 +26,7 @@ public class Instructor {
     @Column(name = "address", nullable = false, length = 100)
     private String address;
 
+    @JsonIgnoreProperties({"instructor", "students"})
     @OneToMany(mappedBy = "instructor", fetch = FetchType.LAZY)
     private Set<Course> courses = new HashSet<>();
 
