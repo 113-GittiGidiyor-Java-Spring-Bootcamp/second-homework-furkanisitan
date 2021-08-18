@@ -1,21 +1,22 @@
 package dev.patika.hw02.api.controllers;
 
+import dev.patika.hw02.api.helpers.DataResultResponseHelper;
+import dev.patika.hw02.api.helpers.ResultResponseHelper;
 import dev.patika.hw02.business.abstracts.StudentService;
-import dev.patika.hw02.core.utilities.constants.ResponseMessage;
-import dev.patika.hw02.core.utilities.helpers.ApiErrors;
 import dev.patika.hw02.core.utilities.results.abstracts.DataResult;
+import dev.patika.hw02.core.utilities.results.abstracts.Result;
 import dev.patika.hw02.core.utilities.results.helpers.DataResultHelper;
 import dev.patika.hw02.entities.concretes.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
+
+import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
 
 @RestController
 @RequestMapping("/api/students")
@@ -40,8 +41,51 @@ public class StudentController {
 
         return student != null ?
                 ResponseEntity.ok(DataResultHelper.ok(student)) :
-                ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body(DataResultHelper.fail(ResponseMessage.NOT_FOUND,
-                                ApiErrors.entityNotFound(Student.class.getSimpleName(), Pair.of("id", id))));
+
+                // return 404 if student does not exist
+                DataResultResponseHelper.notFound(Student.class.getSimpleName(), Pair.of("id", id));
     }
+
+    @PostMapping
+    public ResponseEntity<DataResult<Student>> create(@RequestBody Student student) {
+
+        student.setId(null);
+        Student createdStudent = studentService.create(student);
+
+        // location header
+        URI uri = MvcUriComponentsBuilder.fromMethodCall(
+                on(StudentController.class).getById(createdStudent.getId())).buildAndExpand().toUri();
+
+        return ResponseEntity.created(uri).body(DataResultHelper.ok(createdStudent));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Result> update(@PathVariable long id, @RequestBody Student student) {
+
+        Student existStudent = studentService.findById(id);
+
+        // return 404 if student does not exist
+        if (existStudent == null)
+            return ResultResponseHelper.notFound(Student.class.getSimpleName(), Pair.of("id", id));
+
+        student.setId(id);
+        studentService.update(student);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Result> delete(@PathVariable long id) {
+
+        Student existStudent = studentService.findById(id);
+
+        // return 404 if student does not exist
+        if (existStudent == null)
+            return ResultResponseHelper.notFound(Student.class.getSimpleName(), Pair.of("id", id));
+
+        studentService.deleteById(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
 }
