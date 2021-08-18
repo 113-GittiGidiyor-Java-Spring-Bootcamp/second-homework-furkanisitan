@@ -1,6 +1,5 @@
 package dev.patika.hw02.business.abstracts;
 
-import dev.patika.hw02.entities.concretes.Course;
 import dev.patika.hw02.entities.concretes.Student;
 
 import java.util.List;
