@@ -27,7 +27,7 @@ An example REST API with Spring Boot
 * [Create VisitingResearcher](doc/api/instructor/create-visiting-researcher.md) : `POST /api/instructors/visiting-researchers`
 * [Update PermanentInstructor](doc/api/instructor/update-permanent-instructor.md) : `PUT /api/instructors/permanent-instructors/:id`
 * [Update VisitingResearcher](doc/api/instructor/update-visiting-researcher.md) : `PUT /api/instructors/visiting-researchers/:id`
-* [Delete Instructor](doc/api/instructor/delete-course.md) : `DELETE /api/instructors/:id`
+* [Delete Instructor](doc/api/instructor/delete-instructor.md) : `DELETE /api/instructors/:id`
 
 ### Student related
 
