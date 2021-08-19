@@ -10,6 +10,8 @@ public interface CourseService {
 
     Course findById(Long id);
 
+    Course findByCode(String code);
+
     Course create(Course course);
 
     Course update(Course course);
