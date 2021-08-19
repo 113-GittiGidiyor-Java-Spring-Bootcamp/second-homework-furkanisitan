@@ -98,6 +98,15 @@ public class Instructor {
     }
 
     /**
+     * Removes the specified course from this instructor.
+     *
+     * @param course element to be removed from this instructor.
+     */
+    public void removeCourse(Course course) {
+        removeCourse(course, null);
+    }
+
+    /**
      * Removes the specified course from this instructor, assigns it to the other specified instructor.
      *
      * @param course     element to be removed from this instructor.
@@ -106,6 +115,22 @@ public class Instructor {
     public void removeCourse(Course course, Instructor instructor) {
         courses.remove(course);
         course.setInstructor(instructor);
+    }
+
+    /**
+     * Removes all of the courses from this instructor.
+     */
+    public void clearCourses() {
+        clearCourses(null);
+    }
+
+    /**
+     * Removes all courses from this instructor, assigns them to the other specified instructor.
+     */
+    public void clearCourses(Instructor instructor) {
+        for (Course course : courses)
+            course.setInstructor(instructor);
+        courses.clear();
     }
     //endregion
 }
