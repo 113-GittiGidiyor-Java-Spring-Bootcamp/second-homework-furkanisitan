@@ -1,4 +1,4 @@
-package dev.patika.hw02.core.utilities.constants;
+package dev.patika.hw02.core.constants;
 
 /**
  * This class contains constant response messages for api.

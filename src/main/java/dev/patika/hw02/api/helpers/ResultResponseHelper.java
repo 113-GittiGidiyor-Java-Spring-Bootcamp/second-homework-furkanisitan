@@ -1,9 +1,9 @@
 package dev.patika.hw02.api.helpers;
 
-import dev.patika.hw02.core.utilities.constants.ResponseMessage;
-import dev.patika.hw02.core.utilities.helpers.ApiErrors;
-import dev.patika.hw02.core.utilities.results.abstracts.Result;
-import dev.patika.hw02.core.utilities.results.helpers.ResultHelper;
+import dev.patika.hw02.core.constants.ResponseMessage;
+import dev.patika.hw02.core.helpers.ApiErrors;
+import dev.patika.hw02.core.results.abstracts.Result;
+import dev.patika.hw02.core.results.helpers.ResultHelper;
 import org.springframework.data.util.Pair;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

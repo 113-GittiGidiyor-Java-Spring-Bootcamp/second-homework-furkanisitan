@@ -1,6 +1,6 @@
 package dev.patika.hw02.core.exceptions;
 
-import dev.patika.hw02.core.utilities.helpers.ApiErrors;
+import dev.patika.hw02.core.helpers.ApiErrors;
 import org.springframework.data.util.Pair;
 
 public class EntityNotExistsException extends RuntimeException {

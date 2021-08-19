@@ -1,4 +1,4 @@
-package dev.patika.hw02.core.utilities.helpers;
+package dev.patika.hw02.core.helpers;
 
 
 import org.springframework.data.util.Pair;

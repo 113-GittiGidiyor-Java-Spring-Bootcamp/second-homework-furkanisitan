@@ -1,6 +1,6 @@
-package dev.patika.hw02.core.utilities.results.concretes;
+package dev.patika.hw02.core.results.concretes;
 
-import dev.patika.hw02.core.utilities.results.abstracts.DataResult;
+import dev.patika.hw02.core.results.abstracts.DataResult;
 
 import java.util.ArrayList;
 import java.util.List;

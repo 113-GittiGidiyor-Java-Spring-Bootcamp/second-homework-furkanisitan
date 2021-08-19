@@ -1,6 +1,6 @@
-package dev.patika.hw02.core.utilities.results.concretes;
+package dev.patika.hw02.core.results.concretes;
 
-import dev.patika.hw02.core.utilities.results.abstracts.Result;
+import dev.patika.hw02.core.results.abstracts.Result;
 
 public class SuccessResult extends Result {
 

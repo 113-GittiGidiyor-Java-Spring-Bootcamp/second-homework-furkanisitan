@@ -1,10 +1,10 @@
-package dev.patika.hw02.core.utilities.results.abstracts;
+package dev.patika.hw02.core.results.abstracts;
 
 /**
  * See the package below to see the classes that implement this abstract class.
  *
  * @param <T> the type of the {@literal data}
- * @see dev.patika.hw02.core.utilities.results.concretes
+ * @see dev.patika.hw02.core.results.concretes
  */
 public abstract class DataResult<T> extends Result {
 

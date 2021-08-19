@@ -1,8 +1,8 @@
-package dev.patika.hw02.core.utilities.results.helpers;
+package dev.patika.hw02.core.results.helpers;
 
-import dev.patika.hw02.core.utilities.results.abstracts.DataResult;
-import dev.patika.hw02.core.utilities.results.concretes.ErrorDataResult;
-import dev.patika.hw02.core.utilities.results.concretes.SuccessDataResult;
+import dev.patika.hw02.core.results.abstracts.DataResult;
+import dev.patika.hw02.core.results.concretes.ErrorDataResult;
+import dev.patika.hw02.core.results.concretes.SuccessDataResult;
 
 import java.util.Arrays;
 
