@@ -11,7 +11,6 @@ import dev.patika.hw02.entities.concretes.Instructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -79,7 +78,6 @@ public class CourseManager implements CourseService {
         return repository.update(course);
     }
 
-    @Transactional
     @Override
     public void deleteById(Long id) {
 
@@ -88,8 +86,6 @@ public class CourseManager implements CourseService {
             throw new EntityNotExistsException("Course", Pair.of("id", id));
 
         course.clearStudents();
-
-        repository.update(course);
-        repository.deleteById(id);
+        repository.delete(course);
     }
 }
