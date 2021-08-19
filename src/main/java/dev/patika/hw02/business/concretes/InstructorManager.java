@@ -46,14 +46,17 @@ public class InstructorManager implements InstructorService {
     }
 
     @Override
-    public Instructor create(Instructor instructor) {
+    public Instructor createPermanentInstructor(PermanentInstructor permanentInstructor) {
 
-        // check if 'phoneNumber' is unique
-        Instructor existsInstructor = findByPhoneNumber(instructor.getPhoneNumber());
-        if (existsInstructor != null)
-            throw new UniqueConstraintViolationException("phoneNumber", instructor.getPhoneNumber());
+        validatePhoneNumberIsUnique(permanentInstructor.getPhoneNumber());
+        return permanentInstructorRepository.save(permanentInstructor);
+    }
 
-        return repository.save(instructor);
+    @Override
+    public Instructor createVisitingResearcher(VisitingResearcher visitingResearcher) {
+
+        validatePhoneNumberIsUnique(visitingResearcher.getPhoneNumber());
+        return visitingResearcherRepository.save(visitingResearcher);
     }
 
     @Override
@@ -78,17 +81,14 @@ public class InstructorManager implements InstructorService {
 
     private Instructor update(Instructor instructor) {
 
-        // check if 'phoneNumber' is unique
-        Instructor existsInstructor = findByPhoneNumber(instructor.getPhoneNumber());
-        if (existsInstructor != null && !Objects.equals(existsInstructor.getId(), instructor.getId()))
-            throw new UniqueConstraintViolationException("phoneNumber", instructor.getPhoneNumber());
-
+        validatePhoneNumberIsUniqueForUpdate(instructor.getPhoneNumber(), instructor.getId());
         return repository.update(instructor);
     }
 
     @Override
     public void deleteById(Long id) {
 
+        // Check if the Instructor is exists
         Instructor instructor = findById(id);
         if (instructor == null)
             throw new EntityNotExistsException("Instructor", Pair.of("id", id));
@@ -96,4 +96,31 @@ public class InstructorManager implements InstructorService {
         instructor.clearCourses();
         repository.delete(instructor);
     }
+
+    //region validators
+    /**
+     * Checks if {@literal phoneNumber} is unique.
+     *
+     * @param phoneNumber unique value to validate.
+     * @throws UniqueConstraintViolationException if {@literal phoneNumber} is not unique.
+     */
+    private void validatePhoneNumberIsUnique(String phoneNumber) {
+        Instructor existsInstructor = findByPhoneNumber(phoneNumber);
+        if (existsInstructor != null)
+            throw new UniqueConstraintViolationException("phoneNumber", phoneNumber);
+    }
+
+    /**
+     * Checks if {@literal phoneNumber} is unique for update operation.
+     *
+     * @param phoneNumber  unique value to validate.
+     * @param instructorId the id of the instructor to be updated.
+     * @throws UniqueConstraintViolationException if {@literal phoneNumber} is not unique.
+     */
+    private void validatePhoneNumberIsUniqueForUpdate(String phoneNumber, Long instructorId) {
+        Instructor existsInstructor = findByPhoneNumber(phoneNumber);
+        if (existsInstructor != null && !Objects.equals(existsInstructor.getId(), instructorId))
+            throw new UniqueConstraintViolationException("phoneNumber", phoneNumber);
+    }
+    //endregion
 }

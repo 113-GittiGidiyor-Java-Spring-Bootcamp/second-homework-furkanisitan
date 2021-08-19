@@ -14,7 +14,9 @@ public interface InstructorService {
 
     Instructor findByPhoneNumber(String phoneNumber);
 
-    Instructor create(Instructor instructor);
+    Instructor createPermanentInstructor(PermanentInstructor permanentInstructor);
+
+    Instructor createVisitingResearcher(VisitingResearcher visitingResearcher);
 
     Instructor updatePermanentInstructor(PermanentInstructor permanentInstructor);
 

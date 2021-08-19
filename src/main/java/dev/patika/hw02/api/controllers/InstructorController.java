@@ -51,24 +51,20 @@ public class InstructorController {
 
     @PostMapping("/permanent-instructors")
     public ResponseEntity<DataResult<Instructor>> createPermanentInstructor(@RequestBody PermanentInstructor permanentInstructor) {
-        return create(permanentInstructor);
+
+        permanentInstructor.setId(null);
+        Instructor createdInstructor = instructorService.createPermanentInstructor(permanentInstructor);
+
+        return getResponseWithLocation(createdInstructor);
     }
 
     @PostMapping("/visiting-researchers")
     public ResponseEntity<DataResult<Instructor>> createVisitingResearcher(@RequestBody VisitingResearcher visitingResearcher) {
-        return create(visitingResearcher);
-    }
 
-    private ResponseEntity<DataResult<Instructor>> create(Instructor instructor) {
+        visitingResearcher.setId(null);
+        Instructor createdInstructor = instructorService.createVisitingResearcher(visitingResearcher);
 
-        instructor.setId(null);
-        Instructor createdInstructor = instructorService.create(instructor);
-
-        // location header
-        URI uri = MvcUriComponentsBuilder.fromMethodCall(
-                on(InstructorController.class).getById(createdInstructor.getId())).buildAndExpand().toUri();
-
-        return ResponseEntity.created(uri).body(DataResultHelper.ok(createdInstructor));
+        return getResponseWithLocation(createdInstructor);
     }
 
     @PutMapping("/permanent-instructors/{id}")
@@ -101,6 +97,15 @@ public class InstructorController {
         instructorService.deleteById(id);
 
         return ResponseEntity.noContent().build();
+    }
+
+    private ResponseEntity<DataResult<Instructor>> getResponseWithLocation(Instructor instructor) {
+
+        // location header
+        URI uri = MvcUriComponentsBuilder.fromMethodCall(
+                on(InstructorController.class).getById(instructor.getId())).buildAndExpand().toUri();
+
+        return ResponseEntity.created(uri).body(DataResultHelper.ok(instructor));
     }
 
 }
