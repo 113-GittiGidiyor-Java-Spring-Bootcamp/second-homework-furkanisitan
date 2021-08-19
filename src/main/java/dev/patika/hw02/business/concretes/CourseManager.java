@@ -46,14 +46,10 @@ public class CourseManager implements CourseService {
     public Course create(Course course) {
 
         // check if 'code' is unique
-        Course existsCourse = findByCode(course.getCode());
-        if (existsCourse != null)
-            throw new UniqueConstraintViolationException("code", course.getCode());
+        validateCodeIsUnique(course.getCode());
 
         // Check if there is an instructor with the foreign key 'instructorId'
-        Instructor existsInstructor = instructorService.findById(course.getInstructor().getId());
-        if (existsInstructor == null)
-            throw new ForeignKeyConstraintViolationException("instructorId", course.getInstructor().getId());
+        validateInstructorIsExists(course.getInstructor().getId());
 
         return repository.save(course);
     }
@@ -66,14 +62,10 @@ public class CourseManager implements CourseService {
             throw new EntityNotExistsException("Course", Pair.of("id", course.getId()));
 
         // check if 'code' is unique
-        Course existsCourse = findByCode(course.getCode());
-        if (existsCourse != null && !Objects.equals(existsCourse.getId(), course.getId()))
-            throw new UniqueConstraintViolationException("code", course.getCode());
+        validateCodeIsUniqueForUpdate(course.getCode(), course.getId());
 
         // Check if there is an instructor with the foreign key 'instructorId'
-        Instructor existsInstructor = instructorService.findById(course.getInstructor().getId());
-        if (existsInstructor == null)
-            throw new ForeignKeyConstraintViolationException("instructorId", course.getInstructor().getId());
+        validateInstructorIsExists(course.getInstructor().getId());
 
         return repository.update(course);
     }
@@ -88,4 +80,44 @@ public class CourseManager implements CourseService {
         course.clearStudents();
         repository.delete(course);
     }
+
+    //region validators
+
+    /**
+     * Checks if {@literal code} is unique.
+     *
+     * @param code unique value to validate.
+     * @throws UniqueConstraintViolationException if {@literal code} is not unique.
+     */
+    private void validateCodeIsUnique(String code) {
+        Course existsCourse = findByCode(code);
+        if (existsCourse != null)
+            throw new UniqueConstraintViolationException("code", code);
+    }
+
+    /**
+     * Checks if {@literal code} is unique for update operation.
+     *
+     * @param code     unique value to validate.
+     * @param courseId the id of the course to be updated.
+     * @throws UniqueConstraintViolationException if {@literal code} is not unique.
+     */
+    private void validateCodeIsUniqueForUpdate(String code, Long courseId) {
+        Course existsCourse = findByCode(code);
+        if (existsCourse != null && !Objects.equals(existsCourse.getId(), courseId))
+            throw new UniqueConstraintViolationException("code", code);
+    }
+
+    /**
+     * Checks if there is an instructor with the foreign key @{literal instructorId}.
+     *
+     * @param instructorId foreign key
+     * @throws ForeignKeyConstraintViolationException if @{literal instructorId} is not exists.
+     */
+    private void validateInstructorIsExists(Long instructorId) {
+        Instructor existsInstructor = instructorService.findById(instructorId);
+        if (existsInstructor == null)
+            throw new ForeignKeyConstraintViolationException("instructorId", instructorId);
+    }
+    //endregion
 }
