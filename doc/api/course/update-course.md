@@ -1,6 +1,6 @@
 # Update Course
 
-Updates the StudCourseent.
+Updates the Course.
 
 **URL** : `/api/courses/:id`
 
