@@ -8,7 +8,6 @@ import dev.patika.hw02.core.results.abstracts.Result;
 import dev.patika.hw02.core.results.helpers.DataResultHelper;
 import dev.patika.hw02.entities.concretes.Instructor;
 import dev.patika.hw02.entities.concretes.PermanentInstructor;
-import dev.patika.hw02.entities.concretes.Student;
 import dev.patika.hw02.entities.concretes.VisitingResearcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
@@ -46,7 +45,7 @@ public class InstructorController {
                 ResponseEntity.ok(DataResultHelper.ok(instructor)) :
 
                 // return 404 if instructor does not exist
-                DataResultResponseHelper.notFound(Student.class.getSimpleName(), Pair.of("id", id));
+                DataResultResponseHelper.notFound(Instructor.class.getSimpleName(), Pair.of("id", id));
     }
 
     @PostMapping("/permanent-instructors")
@@ -90,9 +89,9 @@ public class InstructorController {
 
         Instructor existsInstructor = instructorService.findById(id);
 
-        // return 404 if student does not exist
+        // return 404 if instructor does not exist
         if (existsInstructor == null)
-            return ResultResponseHelper.notFound(Student.class.getSimpleName(), Pair.of("id", id));
+            return ResultResponseHelper.notFound(Instructor.class.getSimpleName(), Pair.of("id", id));
 
         instructorService.deleteById(id);
 
