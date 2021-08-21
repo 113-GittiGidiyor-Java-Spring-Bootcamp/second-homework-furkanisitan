@@ -1,12 +1,16 @@
 package dev.patika.hw02.entities.concretes;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.DEDUCTION)
+@JsonSubTypes({@JsonSubTypes.Type(PermanentInstructor.class), @JsonSubTypes.Type(VisitingResearcher.class)})
 @Entity
 @Table(name = "instructors")
 @Inheritance(strategy = InheritanceType.JOINED)

@@ -1,14 +1,14 @@
-# Update PermanentInstructor
+# Update Instructor
 
-Updates the PermanentInstructor.
+Updates the Instructor.
 
-**URL** : `/api/instructors/permanent-instructors/:id`
+**URL** : `/api/instructors/:id`
 
 **URL Parameters** : `id=[long]`
 
 **Method** : `PUT`
 
-**Sample Request Body**
+**Sample Request Body (PermanenInstructor)**
 
 ```json
 {
@@ -19,11 +19,37 @@ Updates the PermanentInstructor.
 }
 ```
 
+**Sample Request Body (VisitingResearcher)**
+
+```json
+{
+    "phoneNumber": "+905055557555",
+    "name": "updateVS2",
+    "address": "updateVS2Address",
+    "hourlySalary": 66.43
+}
+```
+
 ## Success Response
 
 **Code** : `204 NO CONTENT`
 
 ## Error Responses
+
+**Code** : `400 BAD REQUEST`
+
+**Sample Response Body** : 
+```json
+{
+    "success": false,
+    "message": "An invalid entity type error has occurred.",
+    "errors": [
+        "The type of the submitted model is not of type 'VisitingResearcher'."
+    ]
+}
+```
+
+----
 
 **Code** : `404 NOT FOUND`
 

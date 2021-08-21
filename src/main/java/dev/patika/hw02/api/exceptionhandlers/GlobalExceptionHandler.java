@@ -1,9 +1,11 @@
 package dev.patika.hw02.api.exceptionhandlers;
 
+import com.fasterxml.jackson.databind.exc.InvalidTypeIdException;
+import dev.patika.hw02.core.constants.ResponseMessage;
 import dev.patika.hw02.core.exceptions.EntityNotExistsException;
 import dev.patika.hw02.core.exceptions.ForeignKeyConstraintViolationException;
+import dev.patika.hw02.core.exceptions.InvalidEntityTypeException;
 import dev.patika.hw02.core.exceptions.UniqueConstraintViolationException;
-import dev.patika.hw02.core.constants.ResponseMessage;
 import dev.patika.hw02.core.results.abstracts.Result;
 import dev.patika.hw02.core.results.helpers.ResultHelper;
 import org.springframework.http.HttpStatus;
@@ -34,6 +36,20 @@ class GlobalExceptionHandler {
     @ResponseBody
     Result handleEntityNotExistsException(EntityNotExistsException e) {
         return ResultHelper.fail(ResponseMessage.NOT_FOUND, e.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(InvalidEntityTypeException.class)
+    @ResponseBody
+    Result handleInvalidEntityTypeException(InvalidEntityTypeException e) {
+        return ResultHelper.fail(ResponseMessage.INVALID_ENTITY_TYPE, e.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(InvalidTypeIdException.class)
+    @ResponseBody
+    Result handleInvalidEntityTypeException(InvalidTypeIdException e) {
+        return ResultHelper.fail(ResponseMessage.INVALID_ENTITY_TYPE, e.getMessage());
     }
 
 }

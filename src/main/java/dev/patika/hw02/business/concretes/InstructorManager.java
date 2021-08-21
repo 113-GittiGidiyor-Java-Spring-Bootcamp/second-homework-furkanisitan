@@ -2,13 +2,10 @@ package dev.patika.hw02.business.concretes;
 
 import dev.patika.hw02.business.abstracts.InstructorService;
 import dev.patika.hw02.core.exceptions.EntityNotExistsException;
+import dev.patika.hw02.core.exceptions.InvalidEntityTypeException;
 import dev.patika.hw02.core.exceptions.UniqueConstraintViolationException;
 import dev.patika.hw02.dataaccess.abstracts.InstructorRepository;
-import dev.patika.hw02.dataaccess.abstracts.PermanentInstructorRepository;
-import dev.patika.hw02.dataaccess.abstracts.VisitingResearcherRepository;
 import dev.patika.hw02.entities.concretes.Instructor;
-import dev.patika.hw02.entities.concretes.PermanentInstructor;
-import dev.patika.hw02.entities.concretes.VisitingResearcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
@@ -20,14 +17,10 @@ import java.util.Objects;
 public class InstructorManager implements InstructorService {
 
     private final InstructorRepository repository;
-    private final PermanentInstructorRepository permanentInstructorRepository;
-    private final VisitingResearcherRepository visitingResearcherRepository;
 
     @Autowired
-    public InstructorManager(InstructorRepository repository, PermanentInstructorRepository permanentInstructorRepository, VisitingResearcherRepository visitingResearcherRepository) {
+    public InstructorManager(InstructorRepository repository) {
         this.repository = repository;
-        this.permanentInstructorRepository = permanentInstructorRepository;
-        this.visitingResearcherRepository = visitingResearcherRepository;
     }
 
     @Override
@@ -46,42 +39,26 @@ public class InstructorManager implements InstructorService {
     }
 
     @Override
-    public Instructor createPermanentInstructor(PermanentInstructor permanentInstructor) {
-
-        validatePhoneNumberIsUnique(permanentInstructor.getPhoneNumber());
-        return permanentInstructorRepository.save(permanentInstructor);
+    public Instructor create(Instructor instructor) {
+        validatePhoneNumberIsUnique(instructor.getPhoneNumber());
+        return repository.save(instructor);
     }
 
     @Override
-    public Instructor createVisitingResearcher(VisitingResearcher visitingResearcher) {
+    public Instructor update(Instructor instructor) {
 
-        validatePhoneNumberIsUnique(visitingResearcher.getPhoneNumber());
-        return visitingResearcherRepository.save(visitingResearcher);
-    }
+        Instructor existsInstructor = findById(instructor.getId());
 
-    @Override
-    public Instructor updatePermanentInstructor(PermanentInstructor permanentInstructor) {
+        // Check if the Instructor is exists
+        if (existsInstructor == null)
+            throw new EntityNotExistsException("Instructor", Pair.of("id", instructor.getId()));
 
-        // Check if the PermanentInstructor is exists
-        if (permanentInstructorRepository.findById(permanentInstructor.getId()) == null)
-            throw new EntityNotExistsException("PermanentInstructor", Pair.of("id", permanentInstructor.getId()));
-
-        return update(permanentInstructor);
-    }
-
-    @Override
-    public Instructor updateVisitingResearcher(VisitingResearcher visitingResearcher) {
-
-        // Check if the VisitingResearcher is exists
-        if (visitingResearcherRepository.findById(visitingResearcher.getId()) == null)
-            throw new EntityNotExistsException("VisitingResearcher", Pair.of("id", visitingResearcher.getId()));
-
-        return update(visitingResearcher);
-    }
-
-    private Instructor update(Instructor instructor) {
+        // check if existing entity type equals type of entity to update.
+        if (!instructor.getClass().equals(existsInstructor.getClass()))
+            throw new InvalidEntityTypeException(existsInstructor.getClass().getSimpleName());
 
         validatePhoneNumberIsUniqueForUpdate(instructor.getPhoneNumber(), instructor.getId());
+
         return repository.update(instructor);
     }
 
@@ -98,6 +75,7 @@ public class InstructorManager implements InstructorService {
     }
 
     //region validators
+
     /**
      * Checks if {@literal phoneNumber} is unique.
      *
@@ -111,7 +89,7 @@ public class InstructorManager implements InstructorService {
     }
 
     /**
-     * Checks if {@literal phoneNumber} is unique for update operation.
+     * Checks if {@literal phoneNumber} is unique for update_ operation.
      *
      * @param phoneNumber  unique value to validate.
      * @param instructorId the id of the instructor to be updated.

@@ -23,10 +23,8 @@ An example REST API with Spring Boot
 
 * [Show Instructors](doc/api/instructor/show-instructors.md) : `GET /api/instructors`
 * [Show Instructor](doc/api/instructor/show-instructor.md) : `GET /api/instructors/:id`
-* [Create PermanentInstructor](doc/api/instructor/create-permanent-instructor.md) : `POST /api/instructors/permanent-instructors`
-* [Create VisitingResearcher](doc/api/instructor/create-visiting-researcher.md) : `POST /api/instructors/visiting-researchers`
-* [Update PermanentInstructor](doc/api/instructor/update-permanent-instructor.md) : `PUT /api/instructors/permanent-instructors/:id`
-* [Update VisitingResearcher](doc/api/instructor/update-visiting-researcher.md) : `PUT /api/instructors/visiting-researchers/:id`
+* [Create Instructor](doc/api/instructor/create-instructor.md) : `POST /api/instructors`
+* [Update Instructor](doc/api/instructor/update-instructor.md) : `PUT /api/instructors/:id`
 * [Delete Instructor](doc/api/instructor/delete-instructor.md) : `DELETE /api/instructors/:id`
 
 ### Student related

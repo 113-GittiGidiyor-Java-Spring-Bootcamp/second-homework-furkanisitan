@@ -1,20 +1,30 @@
+# Create Instructor
 
-# Create PermanentInstructor
+Creates a new Instructor.
 
-Creates a new PermanentInstructor.
-
-**URL** : `/api/instructors/permanent-instructors`
+**URL** : `/api/instructors`
 
 **Method** : `POST`
 
-**Sample Request Body**
+**Sample Request Body (PermanenInstructor)**
 
 ```json
 {
     "phoneNumber": "905057570001",
-    "name": "PI2",
-    "address": "PI2Address",
+    "name": "newPI2",
+    "address": "newPI2Address",
     "fixedSalary": 5675.55
+}
+```
+
+**Sample Request Body (VisitingResearcher)**
+
+```json
+{
+    "phoneNumber": "+905057570002",
+    "name": "newVS2",
+    "address": "newVS2Address",
+    "hourlySalary": 44.53
 }
 ```
 
@@ -30,8 +40,8 @@ Creates a new PermanentInstructor.
     "data": {
         "id": 3,
         "phoneNumber": "905057570001",
-        "name": "PI2",
-        "address": "PI2Address",
+        "name": "newPI2",
+        "address": "newPI2Address",
         "fixedSalary": 5675.55
     }
 }
@@ -51,7 +61,7 @@ Creates a new PermanentInstructor.
     "success": false,
     "message": "A unique constraint error has occurred.",
     "errors": [
-        "'phoneNumber' must be unique. {rejectedValue: +905055557556}"
+        "'phoneNumber' must be unique. {rejectedValue: +905055557555}"
     ]
 }
 ```

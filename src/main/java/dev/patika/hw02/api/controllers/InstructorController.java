@@ -7,8 +7,6 @@ import dev.patika.hw02.core.results.abstracts.DataResult;
 import dev.patika.hw02.core.results.abstracts.Result;
 import dev.patika.hw02.core.results.helpers.DataResultHelper;
 import dev.patika.hw02.entities.concretes.Instructor;
-import dev.patika.hw02.entities.concretes.PermanentInstructor;
-import dev.patika.hw02.entities.concretes.VisitingResearcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.http.ResponseEntity;
@@ -48,38 +46,20 @@ public class InstructorController {
                 DataResultResponseHelper.notFound(Instructor.class.getSimpleName(), Pair.of("id", id));
     }
 
-    @PostMapping("/permanent-instructors")
-    public ResponseEntity<DataResult<Instructor>> createPermanentInstructor(@RequestBody PermanentInstructor permanentInstructor) {
+    @PostMapping
+    public ResponseEntity<DataResult<Instructor>> create(@RequestBody Instructor instructor) {
 
-        permanentInstructor.setId(null);
-        Instructor createdInstructor = instructorService.createPermanentInstructor(permanentInstructor);
-
-        return getResponseWithLocation(createdInstructor);
-    }
-
-    @PostMapping("/visiting-researchers")
-    public ResponseEntity<DataResult<Instructor>> createVisitingResearcher(@RequestBody VisitingResearcher visitingResearcher) {
-
-        visitingResearcher.setId(null);
-        Instructor createdInstructor = instructorService.createVisitingResearcher(visitingResearcher);
+        instructor.setId(null);
+        Instructor createdInstructor = instructorService.create(instructor);
 
         return getResponseWithLocation(createdInstructor);
     }
 
-    @PutMapping("/permanent-instructors/{id}")
-    public ResponseEntity<Result> updatePermanentInstructor(@PathVariable long id, @RequestBody PermanentInstructor permanentInstructor) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Result> update(@PathVariable long id, @RequestBody Instructor instructor) {
 
-        permanentInstructor.setId(id);
-        instructorService.updatePermanentInstructor(permanentInstructor);
-
-        return ResponseEntity.noContent().build();
-    }
-
-    @PutMapping("/visiting-researchers/{id}")
-    public ResponseEntity<Result> updateVisitingResearcher(@PathVariable long id, @RequestBody VisitingResearcher visitingResearcher) {
-
-        visitingResearcher.setId(id);
-        instructorService.updateVisitingResearcher(visitingResearcher);
+        instructor.setId(id);
+        instructorService.update(instructor);
 
         return ResponseEntity.noContent().build();
     }
