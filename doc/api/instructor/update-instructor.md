@@ -8,7 +8,7 @@ Updates the Instructor.
 
 **Method** : `PUT`
 
-**Sample Request Body (PermanenInstructor)**
+**Sample Request Body (PermanentInstructor)**
 
 ```json
 {

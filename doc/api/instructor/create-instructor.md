@@ -6,7 +6,7 @@ Creates a new Instructor.
 
 **Method** : `POST`
 
-**Sample Request Body (PermanenInstructor)**
+**Sample Request Body (PermanentInstructor)**
 
 ```json
 {
