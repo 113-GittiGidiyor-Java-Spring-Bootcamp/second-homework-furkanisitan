@@ -30,7 +30,6 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-    @JsonIgnoreProperties({"instructor"})
     @GetMapping
     public ResponseEntity<DataResult<List<Course>>> getAll() {
         return ResponseEntity.ok(DataResultHelper.ok(courseService.findAll()));
