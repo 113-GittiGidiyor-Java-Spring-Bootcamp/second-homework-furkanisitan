@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.DEDUCTION)
+@JsonTypeInfo(use = JsonTypeInfo.Id.DEDUCTION, defaultImpl = Instructor.class)
 @JsonSubTypes({@JsonSubTypes.Type(PermanentInstructor.class), @JsonSubTypes.Type(VisitingResearcher.class)})
 @Entity
 @Table(name = "instructors")
