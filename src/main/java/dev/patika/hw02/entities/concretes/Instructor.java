@@ -117,7 +117,7 @@ public class Instructor {
      * @param instructor other {@literal instructor} to be assigned to the {@literal course} to replace this instructor.
      */
     public void removeCourse(Course course, Instructor instructor) {
-        courses.remove(course);
+        courses.add(course);
         course.setInstructor(instructor);
     }
 
